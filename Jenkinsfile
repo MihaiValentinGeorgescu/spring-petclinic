@@ -46,7 +46,7 @@ pipeline {
         }
         stage('Tag the docker image') {
             when {
-                expression { currentBuild.changeSets == null }
+                changeRequest()
             }
             steps {
                 echo "now we will tag the docker image "
@@ -75,7 +75,7 @@ pipeline {
         }
         stage('Push to DockerHub') {
             when {
-                expression { currentBuild.changeSets == null }
+                changeRequest()
             }
             steps {
                 echo "now we will push to the docker file"
@@ -96,7 +96,7 @@ pipeline {
         }
         stage('Tag docker image again for the main repo') {
             when {
-                expression { currentBuild.changeSets != null }
+                branch 'main'
             }
             steps {
                 echo "now we will tag the docker image for the main branch"
@@ -112,8 +112,7 @@ pipeline {
         }
         stage('Push docker image to main repository') {
             when {
-                // Condition to execute the stage when the branch is 'main'
-                expression { currentBuild.changeSets != null }
+                branch 'main'
             }
             steps {
                 echo "now we will push the image to the docker main repository"

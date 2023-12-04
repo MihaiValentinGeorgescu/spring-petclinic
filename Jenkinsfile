@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
             DOCKERHUB_CREDENTIALS = credentials('mihaivalentingeorgescu-dockerhub')
-            IS_PULL_REQUEST = isPullRequest() ? 'true' : 'false'
+            IS_PULL_REQUEST = isPullRequest()
     }
     stages {
 

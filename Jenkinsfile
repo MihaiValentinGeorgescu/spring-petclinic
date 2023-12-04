@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
             DOCKERHUB_CREDENTIALS = credentials('mihaivalentingeorgescu-dockerhub')
+            IS_PULL_REQUEST = isPullRequest() ? 'true' : 'false'
     }
     stages {
         stage('Checkstyle') {
@@ -46,7 +47,7 @@ pipeline {
         stage('Tag the docker image') {
             when {
                 // Condition to execute the stage when the branch is mai
-                    changeRequest()
+                expression { env.IS_PULL_REQUEST == 'true' }
             }
             steps {
                 echo "now we will tag the docker image "
@@ -76,7 +77,7 @@ pipeline {
         stage('Push to DockerHub') {
             when {
                 // Condition to execute the stage when the branch is main
-                    changeRequest()
+                    expression { env.IS_PULL_REQUEST == 'true' }
             }
             steps {
                 echo "now we will push to the docker file"
@@ -98,9 +99,7 @@ pipeline {
         stage('Tag docker image again for the main repo') {
             when {
                 // Condition to execute the stage when the branch is 'main'
-                not {
-                    changeRequest()
-                }
+                expression { env.IS_PULL_REQUEST == 'true' }
             }
             steps {
                 echo "now we will tag the docker image for the main branch"
@@ -117,9 +116,7 @@ pipeline {
         stage('Push docker image to main repository') {
             when {
                 // Condition to execute the stage when the branch is 'main'
-                not {
-                    changeRequest()
-                }
+                expression { env.IS_PULL_REQUEST == 'true' }
             }
             steps {
                 echo "now we will push the image to the docker main repository"

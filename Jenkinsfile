@@ -4,13 +4,8 @@ pipeline {
             DOCKERHUB_CREDENTIALS = credentials('mihaivalentingeorgescu-dockerhub')
     }
     stages {
-        stage('Set Pull Request Indicator') {
-            steps {
-                script {
-                    def isPullRequest = isPullRequest() ? 'true' : 'false'
-                    env.IS_PULL_REQUEST = isPullRequest
-                }
-            }
+        environment {
+            IS_PULL_REQUEST = "${isPullRequest() ? 'true' : 'false'}"
         }
         stage('Checkstyle') {
             steps {

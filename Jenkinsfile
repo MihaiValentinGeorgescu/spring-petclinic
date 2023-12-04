@@ -46,7 +46,7 @@ pipeline {
         }
         stage('Tag the docker image') {
             when {
-                expression { currentBuild.changeSets != null }
+                expression { currentBuild.changeSets == null }
             }
             steps {
                 echo "now we will tag the docker image "
@@ -75,7 +75,7 @@ pipeline {
         }
         stage('Push to DockerHub') {
             when {
-                expression { currentBuild.changeSets != null }
+                expression { currentBuild.changeSets == null }
             }
             steps {
                 echo "now we will push to the docker file"

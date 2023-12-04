@@ -46,8 +46,10 @@ pipeline {
         stage('Tag the docker image') {
             when {
                 // Condition to execute the stage when the branch is main
+                not {
                     changeRequest()
                 }
+            }
             steps {
                 echo "now we will tag the docker image "
                 script {
@@ -76,8 +78,10 @@ pipeline {
         stage('Push to DockerHub') {
             when {
                 // Condition to execute the stage when the branch is main
+                not {
                     changeRequest()
                 }
+            }
             steps {
                 echo "now we will push to the docker file"
                 script {
@@ -98,9 +102,7 @@ pipeline {
         stage('Tag docker image again for the main repo') {
             when {
                 // Condition to execute the stage when the branch is 'main'
-                expression {
-                    return env.BRANCH_NAME == 'main'
-                }
+                changeRequest()
             }
             steps {
                 echo "now we will tag the docker image for the main branch"
@@ -117,9 +119,7 @@ pipeline {
         stage('Push docker image to main repository') {
             when {
                 // Condition to execute the stage when the branch is 'main'
-                expression {
-                    return env.BRANCH_NAME == 'main'
-                }
+                changeRequest()
             }
             steps {
                 echo "now we will push the image to the docker main repository"

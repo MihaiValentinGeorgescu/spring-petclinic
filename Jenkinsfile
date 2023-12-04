@@ -91,7 +91,7 @@ pipeline {
         }
         stage('Change stages') {
             steps {
-                echo "this is the start of the new stage with the main branch"
+                echo " this is the start of the new stage with the main branch"
             }
         }
         stage('Tag docker image again for the main repo') {

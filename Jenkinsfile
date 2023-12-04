@@ -2,11 +2,10 @@ pipeline {
     agent any
     environment {
             DOCKERHUB_CREDENTIALS = credentials('mihaivalentingeorgescu-dockerhub')
+            IS_PULL_REQUEST = "${isPullRequest() ? 'true' : 'false'}"
     }
     stages {
-        environment {
-            IS_PULL_REQUEST = "${isPullRequest() ? 'true' : 'false'}"
-        }
+
         stage('Checkstyle') {
             steps {
                 sh 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64'

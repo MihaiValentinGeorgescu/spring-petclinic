@@ -140,7 +140,6 @@
 
   </dependencies>
 
-  
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -265,7 +264,6 @@
           </execution>
         </executions>
       </plugin>
-
       <!-- Spring Boot Actuator displays build-related information if a git.properties
         file is present at the classpath -->
       <plugin>

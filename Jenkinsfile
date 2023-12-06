@@ -45,17 +45,17 @@ pipeline {
             }
         }
         stage('Tag the docker image') {
-            when {
-                changeRequest()
-            }
             steps {
                 echo "now we will tag the docker image "
                 script {
-                    def imageTag = sh(script: 'docker tag imagine_spring_petclinic:0.1 mihaivalentingeorgescu/mr:0.1', returnStatus: true)
-                    if (imageTag == 0) {
-                        echo "Image tagged successfully"
-                    } else {
-                        error "Image tagging FAILED" 
+                    def isPullRequest = env.CHANGE_ID != null
+                    if (isPullRequest) {
+                        def imageTag = sh(script: 'docker tag imagine_spring_petclinic:0.1 mihaivalentingeorgescu/mr:0.1', returnStatus: true)
+                        if (imageTag == 0) {
+                            echo "Image tagged successfully"
+                        } else {
+                            error "Image tagging FAILED" 
+                        }
                     }
                 }
             }
@@ -74,17 +74,17 @@ pipeline {
             }
         }
         stage('Push to DockerHub') {
-            when {
-                changeRequest()
-            }
             steps {
                 echo "now we will push to the docker file"
                 script {
-                    def pushToDocker = sh(script: 'docker push mihaivalentingeorgescu/mr:0.1', returnStatus: true)
-                    if (pushToDocker == 0) {
-                        echo "Push made successfully"
-                    } else {
-                        error "Docker push FAILED" 
+                    def isPullRequest = env.CHANGE_ID != null
+                    if (isPullRequest) {
+                        def pushToDocker = sh(script: 'docker push mihaivalentingeorgescu/mr:0.1', returnStatus: true)
+                        if (pushToDocker == 0) {
+                            echo "Push made successfully"
+                        } else {
+                            error "Docker push FAILED" 
+                        }
                     }
                 }
             }

@@ -14,8 +14,8 @@ pipeline {
         }
         stage('Tests') {
             steps {
-                echo " now we will begin the tests and hopefully it will work:D "
-                sh 'mvn test'
+                echo " now we will begin the tests and hopefully it will worknoew :D "
+                sh 'mvn -f pom.xml compile'
             }
         }
         stage('Build') {

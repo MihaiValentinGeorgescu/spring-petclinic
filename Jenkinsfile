@@ -50,7 +50,7 @@ pipeline {
                 script {
                     def isPullRequest = env.CHANGE_ID != null
                     def isNotMainBranch = env.BRANCH_NAME != 'main'
-                    if (isPullRequest && isNotMainBranch) {
+                    if (isPullRequest && isNotMainBranch==true) {
                         def imageTag = sh(script: 'docker tag imagine_spring_petclinic:0.1 mihaivalentingeorgescu/mr:0.1', returnStatus: true)
                         if (imageTag == 0) {
                             echo "Image tagged successfully"
@@ -80,7 +80,7 @@ pipeline {
                 script {
                     def isPullRequest = env.CHANGE_ID != null
                     def isNotMainBranch = env.BRANCH_NAME != 'main'
-                    if (isPullRequest && isNotMainBranch) {
+                    if (isPullRequest && isNotMainBranch==true) {
                         def pushToDocker = sh(script: 'docker push mihaivalentingeorgescu/mr:0.1', returnStatus: true)
                         if (pushToDocker == 0) {
                             echo "Push made successfully"

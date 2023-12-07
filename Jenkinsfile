@@ -50,6 +50,9 @@ pipeline {
                 script {
                     def isPullRequest = env.CHANGE_ID != null
                     def isNotMainBranch = env.BRANCH_NAME != 'main'
+
+                    println "is pull request: ${isPullRequest}"
+                    println "is not main brancht: ${isNotMainBranch}"
                     if (isPullRequest && isNotMainBranch) {
                         def imageTag = sh(script: 'docker tag imagine_spring_petclinic:0.1 mihaivalentingeorgescu/mr:0.1', returnStatus: true)
                         if (imageTag == 0) {

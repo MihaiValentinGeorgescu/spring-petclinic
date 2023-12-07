@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Tests') {
             steps {
-                echo " now we will begin the tests "
+                echo " now we will begin the tests and hopefully it will work:D "
                 sh 'mvn test'
             }
         }

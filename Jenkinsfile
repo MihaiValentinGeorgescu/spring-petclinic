@@ -45,6 +45,11 @@ pipeline {
             }
         }
         stage('Tag the docker image') {
+            when {
+                expression {
+                    return env.CHANGE_ID != null && env.BRANCH_NAME != 'main'
+                }
+            }
             steps {
                 echo "now we will tag the docker image "
                 script {
@@ -78,6 +83,11 @@ pipeline {
             }
         }
         stage('Push to DockerHub') {
+            when {
+                expression {
+                    return env.CHANGE_ID != null && env.BRANCH_NAME != 'main'
+                }
+            }
             steps {
                 echo "now we will push to the docker file"
                 script {

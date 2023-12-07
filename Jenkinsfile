@@ -46,7 +46,7 @@ pipeline {
         }
         stage('Tag the docker image') {
             steps {
-                echo "now we will tag the docker image "
+                echo "now we will tag the docker image"
                 script {
                     def isPullRequest = env.CHANGE_ID != null
                     def isNotMainBranch = env.BRANCH_NAME != 'main'

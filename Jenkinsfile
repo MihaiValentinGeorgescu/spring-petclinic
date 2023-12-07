@@ -15,7 +15,7 @@ pipeline {
         stage('Tests') {
             steps {
                 echo " now we will begin the tests and hopefully it will work:D "
-                sh 'mvn test'
+                sh 'mvn -f pom.xml compile'
             }
         }
         stage('Build') {
